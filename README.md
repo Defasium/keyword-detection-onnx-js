@@ -22,11 +22,15 @@ Finally, the list with timestamps can be saved to the clipboard by clicking the 
 
 ## Model's architecture
 
-It's a simple convolutional network with 8, 16, 32, 61 and 128 sequantial 3x3 filters, followed by global max pooling. Model can be applied on images with fixed height (192 pixels) and dynamic width. It was trained on fixed-sized samples of 1 seconds on dataset with approximately 60 hrs of speech. As for the loss function, the contrastive loss was utilized to distinguish keyword phrases from other ones.
+It's a simple convolutional network with 8, 16, 32, 61 and 128 sequantial 3x3 filters with ReLU activation followed by global max pooling. Model can be applied to images with fixed height (192 pixels) and dynamic width. It was trained on fixed-sized samples of 1 seconds on dataset with approximately 60 hrs of speech. As for the loss function, the contrastive loss was utilized to distinguish keyword phrases from other ones.
 
-After training the last fully-connected layer was deleted features which were extracted after global max pooling were used for training logistic regression with L1 penalty on top of it. Logistic regression was trained on test part. This trick helped to throw away unneccessary filters from last layers (128 -> 51). So the model becomes more lightweight.
+After training the last fully-connected layer was deleted features which were extracted after global max pooling were used for training logistic regression with L1 penalty on top of it. Logistic regression was trained on test part. This trick helped to throw away unneccessary filters from last layers (128 -> 51). So the model becomes more lightweight. 
 
+Due to the fact that receptive field of obtained model is roughly 1000ms we can replace global max pooling with simple max pooling. This gives us a sequence of values, which can be fed into trained logistic regression as individual samples. 
+To make model more accurate the shifted by 500ms spectrogram is processed in parrallel. The final score is maximum between original and shifted images.
 
 Model's architecture acquired from [__Netron__](https://github.com/lutzroeder/netron):
 
-
+<p align='center'>
+  <img src='media/asrStructure.svg'/>
+</p>
