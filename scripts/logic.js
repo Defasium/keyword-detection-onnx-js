@@ -343,7 +343,7 @@ const sampleAudioData = {};
         for (let i = 0; i < binding.length; i += 1) {
             this[binding[i]] = tmp;
         };
-        if (binding.length === 2) {
+        if (binding.length === 2 || ENV_TYPE === 'online') {
             DOM_ELEMS.getId(DOM_ELEMS.loadScreen).style.display = 'none';
         }
     };
