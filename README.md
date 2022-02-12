@@ -2,6 +2,10 @@
 
 ### You can check project here 😎: https://defasium.github.io/keyword-detection-onnx-js
 
+<p align='center'>
+  <img src='media/demonstration.gif' width='50% style='image-rendering: optimizeSpeed;image-rendering: -moz-crisp-edges;image-rendering: -o-crisp-edges;image-rendering: -webkit-optimize-contrast;image-rendering: pixelated;image-rendering: optimize-contrast;-ms-interpolation-mode: nearest-neighbor;'/>
+</p>
+
 This project is designed to identify a keyword on long video or audio files.
 That is, the keyword detection problem is being solved. To do this a convolutional neural network trained on spectrograms of male Russian speech is used.
 The keyword that the network responds to must contain the word "Donat".
@@ -33,7 +37,7 @@ To make model more accurate the shifted by 500ms spectrogram is processed in par
 
 Finally, the model was converted to __ONNX__ file format. The resulting binary file was converted to Base64 string.
 A newer library [__ONNXRuntimeJS__](https://github.com/microsoft/onnxruntime/tree/master/js/web) was used.
-To obtain spectrograms, __ffmpeg.js__ library was used.
+To obtain spectrograms, [__ffmpeg.js__](https://github.com/ffmpegwasm/ffmpeg.wasm) library was used.
 
 Model's architecture acquired from [__Netron__](https://github.com/lutzroeder/netron):
 
