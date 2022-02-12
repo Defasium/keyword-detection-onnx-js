@@ -11,7 +11,7 @@ const sampleAudioData = {};
     const INPUT_FILE = 'input.input';
     const AUDIO_FILE = 'output.wav';
     const SPECTROGRAM_FILE = 'output.apng';
-    const ORT_WASM_FILE = location.hostname === '' ? 'scripts/onnxruntime/ort.wasm.b64.js' : 'https://raw.githubusercontent.com/Defasium/keyword-detection-onnx-js/main/scripts/onnxruntime/ort.wasm.b64.js';
+    const ORT_WASM_FILE = 'scripts/onnxruntime/ort.wasm.b64.js';//location.hostname === '' ? 'scripts/onnxruntime/ort.wasm.b64.js' : 'https://raw.githubusercontent.com/Defasium/keyword-detection-onnx-js/main/scripts/onnxruntime/ort.wasm.b64.js';
     const ASR_MODEL_FILE = 'scripts/model/asr2.b64.js';
     const FLOATMAP = [];
     const UINT_8_MAX = 255;
