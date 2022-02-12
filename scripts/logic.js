@@ -7,6 +7,7 @@ const sampleAudioData = {};
     } = FFmpeg;
     var FILES;
     let filesDurationMap = {};
+    const ENV_TYPE = location.hostname === '' ? 'offline' : 'online';
     const TEST_FILE = (lang) => `scripts/demo/test.${lang}.b64.js`;
     const INPUT_FILE = 'input.input';
     const AUDIO_FILE = 'output.wav';
@@ -351,23 +352,24 @@ const sampleAudioData = {};
         const elem = document.createElement('script');
         elem.type = 'text/javascript';
         elem.defer = true;
+        elem.addEventListener('load', async () => {
+            createURLfromHexObject(ortWasm, ['wasmBinaryFile', 'lt'], 'decode onnxWasm');
+        });
 
         const elem2 = document.createElement('script');
         elem2.type = 'text/javascript';
         elem2.defer = true;
-
-        elem.addEventListener('load', async () => {
-            createURLfromHexObject(ortWasm, ['wasmBinaryFile', 'lt'], 'decode onnxWasm');
-        });
         elem2.addEventListener('load', async () => {
             createURLfromHexObject(modelHex, ['modelPath'], 'decode ASRmodel');
         });
-        elem.src = ORT_WASM_FILE;
         elem2.src = ASR_MODEL_FILE;
-
-        document.getElementsByTagName('body')[0].appendChild(elem);
+        if (ENV_TYPE === 'offline') {
+            elem.src = ORT_WASM_FILE;
+            document.getElementsByTagName('body')[0].appendChild(elem);
+        } else {
+            elem.remove();
+	}
         document.getElementsByTagName('body')[0].appendChild(elem2);
-        //document.getElementsByClassName('blocker')[0].style.display = 'none';
     };
 
     const convertToArr = (hexarr, msg) => {
