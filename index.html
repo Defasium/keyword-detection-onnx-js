@@ -7,7 +7,14 @@
       <title>ASR</title>
       <script src='scripts/ffmpeg/ffmpeg.min.js'></script>
       <!-- Load ONNX.js --><!-- <script src='https://cdn.jsdelivr.net/npm/onnxjs/dist/onnx.min.js'></script>-->
-      <script src='scripts/onnxruntime/ort.min.js'></script>
+      <script>
+        (function(window, undefined) {
+            const s = document.createElement('script');
+            const env = location.hostname === '' ? 'offline' : 'online';
+            s.src = `scripts/onnxruntime/ort.min.${env}.js`;
+            document.head.appendChild(s);
+        })(this);
+      </script>
       <script src='scripts/upng/UPNG.js'></script>
       <link rel='stylesheet' href='media/style.css'/>
    </head>
