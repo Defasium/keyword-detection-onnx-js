@@ -6,7 +6,6 @@ const sampleAudioData = {};
         createWorker
     } = FFmpeg;
     var FILES;
-    //var modelPath, wasmBinaryFile, lt;
     let filesDurationMap = {};
     const TEST_FILE = (lang) => `scripts/demo/test.${lang}.b64.js`;
     const INPUT_FILE = 'input.input';
@@ -306,18 +305,6 @@ const sampleAudioData = {};
             computeAll(FILES);
             DOM_ELEMS.getId(DOM_ELEMS.dropZone).style.display = 'block';
         } else {
-            /*if (isprocessed) {
-            	recorder.start();
-            	const audio = await recorder.stop();
-            	elem.setAttribute('fill', '#000');
-            	recorder = null;
-            	audio.audioBlob = null;
-            	return;
-            }*/
-            //if (recordedURL) {
-            //	URL.revokeObjectURL(recordedURL);
-            //    recordedURL = null;
-            //}
             recorder.start();
             recorder.recording = true;
             elem.setAttribute('fill', '#f00');
@@ -361,8 +348,6 @@ const sampleAudioData = {};
     };
 
     const initScripts = async () => {
-        //loadScript('media/test.b64.js');
-        //document.getElementsByClassName('blocker')[0].style.display = 'block';
         const elem = document.createElement('script');
         elem.type = 'text/javascript';
         elem.defer = true;
@@ -425,7 +410,7 @@ const sampleAudioData = {};
 
     const convertAudio = async (elems) => {
         console.time('convert to audio');
-        elems.message.innerHTML = INTERFACE.MESSAGES.audioConverting[INTERFACE.pos]; //'Converting to audio...';
+        elems.message.innerHTML = INTERFACE.MESSAGES.audioConverting[INTERFACE.pos];
         await FFMPEGworker.run(
             `-y -threads 0 -ss ${elems.ss} -t ${elems.dur} -i ${INPUT_FILE} -map_metadata -1 -map 0:a:0 -acodec pcm_s16le -ac 1 -ar 16000 ${AUDIO_FILE}`, {
                 //input: [elems.ss, elems.dur, elems.name],
@@ -474,7 +459,7 @@ const sampleAudioData = {};
 
     const convertToSpectrogram = async (elems) => {
         console.time('convert to spectrogram');
-        elems.message.innerHTML = INTERFACE.MESSAGES.spectrogramConverting[INTERFACE.pos]; //'Converting audio to spectrogram...';
+        elems.message.innerHTML = INTERFACE.MESSAGES.spectrogramConverting[INTERFACE.pos];
         await FFMPEGworker.run(
             `-y -threads 0 -loglevel quiet -i ${AUDIO_FILE} -lavfi showspectrumpic=s=${elems.width}x${elems.height}:scale=log:color=channel:gain=0.01 ${SPECTROGRAM_FILE}`, {
                 output: SPECTROGRAM_FILE,
@@ -485,7 +470,7 @@ const sampleAudioData = {};
 
     const readSpectrogram = async (elems) => {
         console.time('read image');
-        elems.message.innerHTML = INTERFACE.MESSAGES.spectrogramDecoding[INTERFACE.pos]; //'Decoding spectrogram file...';
+        elems.message.innerHTML = INTERFACE.MESSAGES.spectrogramDecoding[INTERFACE.pos];
         const {
             data
         } = await FFMPEGworker.read(SPECTROGRAM_FILE);
@@ -509,7 +494,7 @@ const sampleAudioData = {};
 
     const loadOrtSession = async (elems) => {
         console.time('load ONNX model');
-        elems.message.innerHTML = INTERFACE.MESSAGES.modelLoading[INTERFACE.pos]; //'Loading recognition model...';
+        elems.message.innerHTML = INTERFACE.MESSAGES.modelLoading[INTERFACE.pos];
         const session = await ort.InferenceSession.create(modelPath, {
             executionProviders: ['wasm']
         });
@@ -529,7 +514,7 @@ const sampleAudioData = {};
 
     const predictSpectrogram = async (elems, session, r) => {
         console.time('predict');
-        elems.message.innerHTML = INTERFACE.MESSAGES.timestampsPrediction[INTERFACE.pos]; //'Predicting timestamps...';
+        elems.message.innerHTML = INTERFACE.MESSAGES.timestampsPrediction[INTERFACE.pos];
         const input = Float32Array.from(r);
         //const length = Int32Array.from([parseInt(width)]);
         const shape = [1, SPECTROGRAM_HEIGHT_BORDERS + elems.height, SPECTROGRAM_WIDTH_BORDERS + elems.width, 1];
@@ -556,12 +541,6 @@ const sampleAudioData = {};
         //////////////////////
         await initWorker(elems);
         //const worker = createWorker();
-        /*const pre = FFMPEGworker.worker.onmessage;
-        worker.worker.onmessage = (msg) => {
-            document.getElementById(DOM_ELEMS.message).innerHTML = msg.data.payload.message;
-            return pre(msg);
-        };*/
-        //await worker.load();
         elems.name = args.target.files[0].name;
         console.log(elems.name);
         if (!(await FFMPEGworker.ls('/')).data.includes(INPUT_FILE)) { //elems.name)) {
@@ -634,10 +613,6 @@ const sampleAudioData = {};
         preds.length = 0;
         dump.length = 0;
         backup.length = 0;
-        //if (FFMPEGworker) {
-        //    await FFMPEGworker.terminate();
-        //    FFMPEGworker = '';
-        //};
     };
 
     const computeAll = async (args) => {
