@@ -1,6 +1,6 @@
 # keyword-detection-onnx-js
 
-### You can check project here 😎: https://defasium.github.io/keyword-detection-onnx-js
+### You can check project here: [🚀](https://defasium.github.io/keyword-detection-onnx-js)
 
 <p align='center'>
   <img src='media/demonstration.gif' width='50% style='image-rendering: optimizeSpeed;image-rendering: -moz-crisp-edges;image-rendering: -o-crisp-edges;image-rendering: -webkit-optimize-contrast;image-rendering: pixelated;image-rendering: optimize-contrast;-ms-interpolation-mode: nearest-neighbor;'/>
