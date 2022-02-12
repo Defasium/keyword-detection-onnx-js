@@ -1,6 +1,6 @@
 # keyword-detection-onnx-js
 
-### You can check project here: [🚀](https://defasium.github.io/keyword-detection-onnx-js)
+### You can check project here: [__🚀__](https://defasium.github.io/keyword-detection-onnx-js)
 
 <p align='center'>
   <img src='media/demonstration.gif' width='50% style='image-rendering: optimizeSpeed;image-rendering: -moz-crisp-edges;image-rendering: -o-crisp-edges;image-rendering: -webkit-optimize-contrast;image-rendering: pixelated;image-rendering: optimize-contrast;-ms-interpolation-mode: nearest-neighbor;'/>
@@ -10,7 +10,19 @@ This project is designed to identify a keyword on long video or audio files.
 That is, the keyword detection problem is being solved. To do this a convolutional neural network trained on spectrograms of male Russian speech is used.
 The keyword that the network responds to must contain the word "Donat".
 To demonstrate the work, upload a file or record audio using a microphone by pressing a button.
-All calculations are carried out on your device and this site easily performs its task without an Internet connection.
+All calculations are carried out on your device and this project can perform its task without an Internet connection.
+
+## Features
+* Audio and video files support ✔️ any format, any duration ( tested on 5hrs files )
+* Playing audio file ✔️ obtained either from audio or video
+* Keyword spotting ✔️
+* Fast navigating ✔️ includes goto timestamp and jumping to near ones
+* Timestamps management ✔️ by thresholding, deletion and undo options
+* Timestamps saving ✔️ to clipboard
+* Online audio recording ✔️ from your microphone device
+* Adaptive interface ✔️ language changes depending on your browser language
+* Demo audio in english and russian ✔️ for quick start
+
 
 ## How does it work?
 The audio track obtained from the media file is divided into segments lasting a thousand seconds.
